@@ -29,6 +29,7 @@ export abstract class ImportComponent implements OnInit {
     @Output() finishedSampleImport = new EventEmitter<any>();
 
     protected networkName: string;
+    protected exampleCardName: string;
     protected deployInProgress: boolean = false;
     protected currentBusinessNetwork = null;
     protected networkDescription: string;
@@ -189,6 +190,7 @@ rule NetworkAdminSystem {
         let desc = (typeof network.description === 'undefined') ? '' : network.description;
         if ((nameEl === '' || nameEl === this.lastName || typeof nameEl === 'undefined')) {
             this.networkName = name;
+            this.exampleCardName = 'admin@' + this.networkName;
             this.lastName = name;
         }
         if ((descEl === '' || descEl === this.lastDesc || typeof descEl === 'undefined')) {

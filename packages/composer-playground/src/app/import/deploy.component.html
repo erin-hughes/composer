@@ -16,7 +16,7 @@
                     <td>
                         <input [ngClass]="{'error-underline': !networkNameValid}" type="text"
                                id="import-businessNetworkName" [ngModel]="networkName"
-                               (ngModelChange)="setNetworkName($event)"
+                               (ngModelChange)="setNetworkName($event); resetCardNameValid"
                                placeholder="eg commodity-trading">
                         <div *ngIf="!networkNameValid" class="error-message">Names must be lower case alpha-numeric
                             with
@@ -41,7 +41,7 @@
                         <input [ngClass]="{'error-underline': !cardNameValid}" type="text"
                                id="import-cardName" [ngModel]="cardName"
                                (ngModelChange)="setCardName($event)"
-                               placeholder="eg. admin@{{networkName}}">
+                               placeholder="eg. {{exampleCardName}}">
                         <div *ngIf="!cardNameValid" class="error-message">The card name must be unique</div>
                     </td>
                 </tr>
@@ -69,7 +69,7 @@
                 <div class="sample-network-list" [ngClass]="{'selected-network' : sampleNetworks[0].name === chosenNetwork.name}" id="base-samples">
                     <div class="sample-network-list-item" *ngIf="sampleNetworks.length>1"
                          [ngClass]="{'selected-network' : sampleNetworks[1].name === chosenNetwork.name}"
-                         (click)="selectNetwork(sampleNetworks[1])">
+                         (click)="selectNetwork(sampleNetworks[1]); resetCardNameValid()">
                         <img *ngIf="sampleNetworks[1].networkImage" src="{{sampleNetworks[1].networkImage}}">
                         <svg *ngIf="!sampleNetworks[1].networkImage">
                             <use xlink:href="#icon-default-network"></use>
@@ -78,7 +78,7 @@
                     </div>
                     <div class="sample-network-list-item"
                          [ngClass]="{'selected-network' : sampleNetworks[0].name === chosenNetwork.name}"
-                         (click)="selectNetwork(sampleNetworks[0])">
+                         (click)="selectNetwork(sampleNetworks[0]); resetCardNameValid()">
                         <svg>
                             <use xlink:href="#icon-default-network"></use>
                         </svg>
@@ -86,7 +86,7 @@
                     </div>
                     <div *ngIf="sampleDropped" class="sample-network-list-item"
                          [ngClass]="{'selected-network' : uploadedNetwork.name === chosenNetwork.name}"
-                         (click)="selectNetwork(uploadedNetwork)">
+                         (click)="selectNetwork(uploadedNetwork); resetCardNameValid()">
                         <button class="icon close-dropped" (click)="closeSample()">
                             <svg class="ibm-icon">
                                 <use xlink:href="#icon-close_24"></use>
@@ -113,7 +113,7 @@
                     <div class="sample-network-list-item"
                          [ngClass]="{'selected-network' : sampleNetwork.name === chosenNetwork.name}"
                          *ngFor=" let sampleNetwork of sampleNetworks | slice:2; let networkIndex=index"
-                         (click)="selectNetwork(sampleNetwork)">
+                         (click)="selectNetwork(sampleNetwork); resetCardNameValid()">
                         <img *ngIf="sampleNetwork.networkImage" src="{{sampleNetwork.networkImage}}">
                         <svg *ngIf="!sampleNetwork.networkImage">
                             <use xlink:href="#icon-default-network"></use>
@@ -123,7 +123,7 @@
                 </div>
                 <div *ngIf="sampleNetworks.length==1">
                     <p class="error-message">Error: could not get any sample networks.</p>
-                </div>        
+                </div>
             </div>
         </div>
     </section>

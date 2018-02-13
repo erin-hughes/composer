@@ -101,12 +101,14 @@ export class DeployComponent extends ImportComponent {
 
     private setNetworkName(name) {
         this.networkName = name;
+        this.exampleCardName = 'admin@' + this.networkName;
         if (!name) {
             this.networkNameValid = true;
         } else {
             let pattern = /^[a-z0-9-]+$/;
             this.networkNameValid = pattern.test(this.networkName);
         }
+        this.resetCardNameValid();
     }
 
     private setCardName(name) {
@@ -114,5 +116,9 @@ export class DeployComponent extends ImportComponent {
             this.cardName = name;
             this.cardNameValid = true;
         }
+    }
+
+    private resetCardNameValid() {
+        this.cardNameValid = true;
     }
 }
